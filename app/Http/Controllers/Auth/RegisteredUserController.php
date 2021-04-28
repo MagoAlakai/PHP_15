@@ -21,10 +21,10 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    // public function create()
-    // {
-    //     return view('auth.register');
-    // }
+    public function create()
+    {
+        return view('auth.register');
+    }
 
     /**
      * Handle an incoming registration request.
@@ -36,6 +36,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -55,5 +56,6 @@ class RegisteredUserController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('user','token'),201);
+        //return response()->json(compact('token'),201);
     }
 }

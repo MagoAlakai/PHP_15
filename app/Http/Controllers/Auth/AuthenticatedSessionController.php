@@ -18,7 +18,9 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\View\View
      */
     //
-
+    public function create(){
+        return view('auth/login');
+    }
 
     /**
      * Handle an incoming authentication request.
@@ -53,10 +55,23 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        $token = JWTAuth::getToken();
+
+        try{
+            JWTAuth::invalidate($token);
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout successful'],
+                status:200);
+        } catch (JWTException $ex){
+            return response()->json([
+                'success' => false,
+                'message' => 'Logout successful'],
+                status:422
+            );
+        }
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
     }
 }
