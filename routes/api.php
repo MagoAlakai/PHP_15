@@ -41,8 +41,8 @@ Route::post('/email/verification-notification', [EmailVerificationNotificationCo
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
             ->middleware('auth');
 
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-            ->middleware('auth')
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
+            //->middleware('auth')
             ->name('logout');
 
 // Route::group(['middleware' => ['jwt.verify']], function() {
