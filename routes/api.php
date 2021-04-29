@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,7 +44,7 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
             ->middleware('auth');
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
-            //->middleware('auth')
+            ->middleware('jwt.verify')
             ->name('logout');
 
 // Route::group(['middleware' => ['jwt.verify']], function() {
